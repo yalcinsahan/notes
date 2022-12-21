@@ -2,7 +2,9 @@ import 'package:notes/data/providers/note_provider.dart';
 import 'package:notes/feature/notes/models/note.dart';
 
 class NoteRepository {
-  final NoteProvider noteProvider = NoteProvider();
+  final NoteProvider noteProvider;
+
+  NoteRepository({required this.noteProvider});
 
   Future<Note> insertNote(Note note) => noteProvider.insert(note);
 

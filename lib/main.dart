@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/data/providers/note_provider.dart';
+import 'package:notes/data/repositories/note_repository.dart';
 import 'package:notes/feature/notes/cubit/note_cubit.dart';
 import 'package:notes/feature/notes/view/notes_page.dart';
 
-void main() {
+void main() async {
   runApp(
     BlocProvider<NoteCubit>(
-      create: (context) => NoteCubit()..fetchNotes(),
+      create: (context) => NoteCubit(
+        noteRepository: NoteRepository(
+          noteProvider: NoteProvider(),
+        ),
+      )..fetchNotes(),
       child: const MyApp(),
     ),
   );

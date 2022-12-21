@@ -6,9 +6,9 @@ import 'package:notes/feature/notes/models/note.dart';
 part 'note_state.dart';
 
 class NoteCubit extends Cubit<NoteState> {
-  final NoteRepository noteRepository = NoteRepository();
+  final NoteRepository noteRepository;
 
-  NoteCubit() : super(const NoteState.loading());
+  NoteCubit({required this.noteRepository}) : super(const NoteState.loading());
 
   Future<void> fetchNotes() async {
     try {

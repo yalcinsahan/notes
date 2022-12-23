@@ -1,13 +1,15 @@
-class Note {
-  int? id;
-  String? title;
-  String? text;
+import 'package:equatable/equatable.dart';
 
-  Note({this.id, this.title, this.text});
+// ignore: must_be_immutable
+class Note extends Equatable {
+  late int id;
+  late String title;
+  late String text;
+
+  Note({this.id = 0, this.title = '', this.text = ''});
 
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
-      'id': id,
       'title': title,
       'text': text,
     };
@@ -20,17 +22,6 @@ class Note {
     text = map['text'];
   }
 
-  /* Note.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    text = json['text'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['title'] = title;
-    data['text'] = text;
-    return data;
-  }*/
+  @override
+  List<Object> get props => [id, text, title];
 }

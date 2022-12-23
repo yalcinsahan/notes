@@ -13,17 +13,16 @@ class NoteCubit extends Cubit<NoteState> {
   Future<void> fetchNotes() async {
     try {
       final notes = await noteRepository.getAllNotes();
-      emit(NoteState.success(notes.reversed.toList()));
+      emit(NoteState.success(notes));
     } on Exception {
       emit(const NoteState.failure());
     }
   }
 
-  Future<void> addNote(String title, String text) async {
-    final result =
-        await noteRepository.insertNote(Note(title: title, text: text));
+  Future<void> addNote(Note note) async {
+    final result = await noteRepository.insertNote(note);
 
-    if (result.id! > 0) {
+    if (result.id > 0) {
       List<Note> addInProgress = state.notes.toList();
       addInProgress.insert(0, result);
 

@@ -31,14 +31,14 @@ class AddingPage extends StatelessWidget {
   FloatingActionButton addButton(BuildContext context, AddState addState) {
     return FloatingActionButton(
       onPressed: () {
-        if (note.id != null) {
+        if (note.id > 0) {
           BlocProvider.of<NoteCubit>(context).updateNote(Note(
               id: note.id,
               text: addState.text.isNotEmpty ? addState.text : note.text,
               title: addState.title.isNotEmpty ? addState.title : note.title));
         } else {
           BlocProvider.of<NoteCubit>(context)
-              .addNote(addState.title, addState.text);
+              .addNote(Note(id: 0, title: addState.title, text: addState.text));
         }
 
         Navigator.pop(context);

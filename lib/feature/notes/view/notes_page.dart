@@ -40,7 +40,7 @@ class NotesPage extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () {
         Navigator.of(context)
-            .push(_createRoute(Note(id: null, title: '', text: '')));
+            .push(_createRoute(Note(id: 0, title: '', text: '')));
       },
       backgroundColor: AppColors.selectiveYellow,
       child: const Icon(
@@ -65,9 +65,9 @@ class NotesPage extends StatelessWidget {
 
   Dismissible listItem(NoteState state, int index, BuildContext context) {
     return Dismissible(
-      key: ValueKey<int?>(state.notes[index].id),
+      key: ValueKey<int>(state.notes[index].id),
       onDismissed: (DismissDirection direction) {
-        context.read<NoteCubit>().deleteNote(state.notes[index].id ?? 0);
+        context.read<NoteCubit>().deleteNote(state.notes[index].id);
       },
       child: InkWell(
         onTap: () {
@@ -82,7 +82,7 @@ class NotesPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: Sizes.perWidth(context) * 1.5),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('${state.notes[index].title}',
+            Text(state.notes[index].title,
                 style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -90,7 +90,7 @@ class NotesPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
-                '${state.notes[index].text}',
+                state.notes[index].text,
                 maxLines: 1,
               ),
             )

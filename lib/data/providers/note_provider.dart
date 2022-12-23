@@ -36,15 +36,16 @@ class NoteProvider {
   Future<List<Note>> getAllNotes() async {
     await open();
 
-    final List<Map<String, dynamic>> maps = await db.query(tableName);
+    final List<Map<String, dynamic>> maps =
+        await db.query(tableName, orderBy: "id DESC");
 
-    return List.generate(maps.length, (i) {
+    return (List.generate(maps.length, (i) {
       return Note(
         id: maps[i]['id'],
         text: maps[i]['text'],
         title: maps[i]['title'],
       );
-    });
+    }));
   }
 
   Future close() async => db.close();
